@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Community Event Portal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+            color: #263238;
+            background: #f4f7f8;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            padding: 14px 8%;
+            background: #12343b;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        nav a:hover {
+            color: #f6c85f;
+        }
+
+        main {
+            width: min(1100px, 92%);
+            margin: 0 auto;
+            padding: 24px 0 40px;
+        }
+
+        section {
+            margin: 28px 0;
+            padding: 24px;
+            background: #ffffff;
+            border: 1px solid #d9e2e5;
+            border-radius: 8px;
+        }
+
+        #welcomeBanner {
+            padding: 24px;
+            background: #0b2a6ef2;
+            color: #ffffff;
+            border: 0;
+            border-radius: 8px;
+        }
+
+        .highlight {
+            padding: 3px 8px;
+            color: #12343b;
+            background: #c1f65f;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        caption {
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .event-img {
+            width: 100%;
+            max-width: 260px;
+            height: 150px;
+            object-fit: cover;
+            /* border: 4px solid #3fd66f; */
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        form {
+            display: grid;
+            gap: 14px;
+        }
+
+        label {
+            display: grid;
+            gap: 6px;
+            font-weight: 700;
+        }
+
+        input,
+        select,
+        textarea,
+        button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #b8c7cc;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        button {
+            color: #ffffff;
+            background: #12343b;
+            border: 0;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        button:hover {
+            background: #0b6e69;
+        }
+
+        .form-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 12px;
+        }
+
+        output,
+        #phoneError,
+        #feeDisplay,
+        #charCount,
+        #videoStatus,
+        #locationResult {
+            display: block;
+            min-height: 24px;
+            color: #0b6e69;
+            font-weight: 700;
+        }
+
+        video {
+            width: 100%;
+            max-width: 720px;
+            border-radius: 8px;
+            background: #000000;
+        }
+
+        footer {
+            padding: 20px 8%;
+            color: #ffffff;
+            text-align: center;
+            background: #12343b;
+        }
+
+        @media (max-width: 640px) {
+            nav,
+            .form-actions {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: grid;
+            }
+
+            td {
+                display: block;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Section -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+        <a href="help.html" target="_blank">Help Page</a>
+    </nav>
+
+    <!-- Main Section -->
+    <main>
+        <section id="home">
+            <div id="welcomeBanner">
+               
+                <h1>Welcome, Community Member!</h1>
+                <p>Register for neighborhood programs, discover upcoming events, and find local services in one place.</p>
+                <p><span style="color: #fff3b0; font-weight: 700;">Special offer:</span> First-time volunteers receive a <span class="highlight">free event kit</span>.</p>
+            </div>
+        </section>
+
+        <section id="events" style="background-color: #2636380f;">
+            <h2>Community Events</h2>
+            <table>
+                <caption>Moments from recent local events</caption>
+                <tr>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/0b6e69/ffffff?text=Food+Drive" alt="Volunteers at a food drive" title="Food Drive" ondblclick="enlargeImage(this)">
+                        <p>Food Drive</p>
+                    </td>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/d6a23f/12343b?text=Music+Night" alt="Outdoor music night" title="Music Night" ondblclick="enlargeImage(this)">
+                        <p>Music Night</p>
+                    </td>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/2f4858/ffffff?text=Art+Fair" alt="Community art fair" title="Art Fair" ondblclick="enlargeImage(this)">
+                        <p>Art Fair</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/c94c4c/ffffff?text=Health+Camp" alt="Health camp registration desk" title="Health Camp" ondblclick="enlargeImage(this)">
+                        <p>Health Camp</p>
+                    </td>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/3a7ca5/ffffff?text=Tree+Planting" alt="Residents planting trees" title="Tree Planting" ondblclick="enlargeImage(this)">
+                        <p>Tree Planting</p>
+                    </td>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/6b705c/ffffff?text=Book+Exchange" alt="Neighborhood book exchange" title="Book Exchange" ondblclick="enlargeImage(this)">
+                        <p>Book Exchange</p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="registration">
+            <h2>Event Registration Form</h2>
+            <form id="registrationForm">
+                <label>
+                    Name
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required autofocus>
+                </label>
+
+                <label>
+                    Email
+                    <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                </label>
+
+                <label>
+                    Phone
+                    <input type="tel" id="phone" name="phone" placeholder="10 digit phone number" required onblur="validatePhone()">
+                    <span id="phoneError"></span>
+                </label>
+
+                <label>
+                    Event Date
+                    <input type="date" id="eventDate" name="eventDate" required>
+                </label>
+
+                <label>
+                    Event Type
+                    <select id="eventType" name="eventType" required onchange="showEventFee(); savePreference();">
+                        <option value="">Choose an event</option>
+                        <option value="Food Drive" data-fee="Free">Food Drive</option>
+                        <option value="Music Night" data-fee="INR 250">Music Night</option>
+                        <option value="Art Fair" data-fee="INR 150">Art Fair</option>
+                        <option value="Health Camp" data-fee="Free">Health Camp</option>
+                    </select>
+                    <span id="feeDisplay"></span>
+                </label>
+
+                <label>
+                    Message
+                    <textarea id="message" name="message" placeholder="Share accessibility needs or questions" onkeyup="countCharacters()"></textarea>
+                    <span id="charCount">0 characters</span>
+                </label>
+
+                <div class="form-actions">
+                    <button type="submit" onclick="confirmRegistration()">Register</button>
+                    <button type="button" onclick="clearPreferences()">Clear Preferences</button>
+                </div>
+
+                <output id="confirmation" for="name email eventType"></output>
+            </form>
+        </section>
+
+        <section id="media">
+            <h2>Video Invite</h2>
+            <video controls oncanplay="videoReady()">
+                <source src="https://www.pexels.com/download/video/13082773/" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p id="videoStatus"></p>
+        </section>
+
+        <section id="contact">
+            <h2>Find Nearby Events</h2>
+            <p>Use your current location to discover events near you.</p>
+            <button type="button" onclick="findNearbyEvents()">Find Nearby Events</button>
+            <p id="locationResult"></p>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2026 Local Community Event Portal</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById("registrationForm");
+        const eventType = document.getElementById("eventType");
+        const confirmation = document.getElementById("confirmation");
+        let formStarted = false;
+
+        window.addEventListener("load", () => {
+            const savedEvent = localStorage.getItem("preferredEvent");
+            if (savedEvent) {
+                eventType.value = savedEvent;
+                showEventFee();
+            }
+            console.log("Local Community Event Portal loaded");
+        });
+
+        form.addEventListener("input", () => {
+            formStarted = true;
+            sessionStorage.setItem("formStarted", "true");
+        });
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const selectedEvent = eventType.value || "the selected event";
+            confirmation.value = `Thank you, ${document.getElementById("name").value}. You are registered for ${selectedEvent}.`;
+            formStarted = false;
+            sessionStorage.removeItem("formStarted");
+        });
+
+        window.onbeforeunload = function () {
+            if (formStarted || sessionStorage.getItem("formStarted")) {
+                return "You have unfinished registration details.";
+            }
+            return undefined;
+        };
+
+        function validatePhone() {
+            const phone = document.getElementById("phone").value.trim();
+            const phoneError = document.getElementById("phoneError");
+            phoneError.textContent = /^\d{10}$/.test(phone) ? "" : "Please enter a valid 10 digit phone number.";
+        }
+
+        function showEventFee() {
+            const selected = eventType.options[eventType.selectedIndex];
+            document.getElementById("feeDisplay").textContent = selected.dataset.fee ? `Event fee: ${selected.dataset.fee}` : "";
+        }
+
+        function confirmRegistration() {
+            if (form.checkValidity()) {
+                alert("Registration submitted successfully.");
+            }
+        }
+
+        function enlargeImage(image) {
+            image.style.maxWidth = image.style.maxWidth === "420px" ? "260px" : "420px";
+            image.style.height = image.style.height === "240px" ? "150px" : "240px";
+        }
+
+
+         function countCharacters(){
+            const cnt=document.getElementById("message").value.length;
+             document.getElementById("charCount").textContent=`${cnt} characters `
+         }
+
+        function videoReady() {
+            document.getElementById("videoStatus").textContent = "Video ready to play";
+        }
+
+        function savePreference() {
+            if (eventType.value) {
+                localStorage.setItem("preferredEvent", eventType.value);
+            }
+        }
+
+        function clearPreferences() {
+            localStorage.clear();
+            sessionStorage.clear();
+            eventType.value = "";
+            document.getElementById("feeDisplay").textContent = "";
+            confirmation.value = "Preferences cleared.";
+            formStarted = false;
+        }
+
+        function findNearbyEvents() {
+            const result = document.getElementById("locationResult");
+
+            if (!navigator.geolocation) {
+                result.textContent = "Geolocation is not supported by this browser.";
+                return;
+            }
+
+            result.textContent = "Finding your location...";
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude.toFixed(10);
+                    const lon = position.coords.longitude.toFixed(10);
+                    result.textContent = `Your coordinates are Latitude: ${lat}, Longitude: ${lon}.`;
+                },
+                (error) => {
+                    if (error.code === error.PERMISSION_DENIED) {
+                        result.textContent = "Location permission was denied.";
+                    } else if (error.code === error.TIMEOUT) {
+                        result.textContent = "Location request timed out.";
+                    } else {
+                        result.textContent = "Unable to retrieve your location.";
+                    }
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 8000,
+                    maximumAge: 0
+                }
+            );
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+/* 1 task */
+   *{
+         box-sizing: border-box;
+         margin: 0;
+         padding: 0;
+    }
+
+     /* body styling */
+/* 3 task && 4 task && 5 task*/
+     body {
+       background: linear-gradient(to right, #f4f7f8, #e8f3f1);
+       font-family: 'Roboto', sans-serif;
+    }
+
+    h2 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+   }
+/* 2 task */
+    h3, p{
+       line-height: 1.6;
+    }
+    /* Nav bar styles */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            padding: 14px 8%;
+            background: #12343b;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        nav a:hover {
+            color: #f6c85f;
+        }
+        nav a:link,nav a:visited{
+            color:white;
+        }
+
+        nav a:active {
+           color: #ffdddd;
+        }
+
+     /* main section */
+        main {
+            width: min(1100px, 92%);
+            margin: 0 auto;
+            padding: 24px 0 40px;
+        }
+
+        section {
+            margin: 28px 0;
+            padding: 24px;
+            background: #ffffff;
+            border: 1px solid #d9e2e5;
+            border-radius: 8px;
+        }
+
+/* banner part styling */
+/* #mainHeader or banner */
+        #welcomeBanner {
+            padding: 24px;
+            background: #0b2a6ef2;
+            color: #ffffff;
+            border: 0;
+            border-radius: 8px;
+        }
+
+        .highlight {
+            padding: 3px 8px;
+            color: #12343b;
+            background: #c1f65f;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+/* Image gallery table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        
+        table tr:nth-child(even) {
+           background-color: #f2f2f2; /* Light gray for even rows */
+        }
+
+        table tr:nth-child(odd) {
+           background-color: #ffffff; /* White for odd rows */
+        }
+        caption {
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .event-img {
+            width: 100%;
+            max-width: 260px;
+            height: 150px;
+            object-fit: cover;
+            /* border: 4px solid #3fd66f; */
+            border-radius: 6px;
+            cursor: pointer;
+        }
+/* Registration form styling */
+        /* form {
+            display: grid;
+            gap: 14px;
+        } */
+
+        label {
+            display: grid;
+            gap: 6px;
+            font-weight: 700;
+        }
+
+        input,
+        select,
+        textarea,
+        button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #b8c7cc;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        button {
+            color: #ffffff;
+            background: #12343b;
+            border: 0;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        button:hover {
+            background: #0b6e69;
+        }
+
+        .form-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 12px;
+        }
+
+        output,
+        #phoneError,
+        #feeDisplay,
+        #charCount,
+        #videoStatus,
+        #locationResult {
+            display: block;
+            min-height: 24px;
+            color: #0b6e69;
+            font-weight: 700;
+        }
+
+        video {
+            width: 100%;
+            max-width: 720px;
+            border-radius: 8px;
+            background: #000000;
+        }
+
+        footer {
+            padding: 20px 8%;
+            color: #ffffff;
+            text-align: center;
+            background: #12343b;
+        }
+
+        @media (max-width: 640px) {
+            nav,
+            .form-actions {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: grid;
+            }
+
+            td {
+                display: block;
+                width: 100%;
+            }
+        }
+
+
+        .bulletin {
+          border: 2px solid #333;
+           padding: 20px;
+          background: #f9f9f9;
+          column-gap: 30px;
+          column-rule: 1px solid gray;
+        }
+        .notice {
+          margin-bottom: 15px;
+          padding: 10px;
+          background: #e6f7ff;
+          border-left: 4px solid #007acc;
+        }
+
+        @media screen and (max-width: 768px) {
+
+    nav ul {
+
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    h1 {
+
+        font-size: 24px;
+    }
+
+    h2 {
+
+        font-size: 20px;
+    }
+
+    body {
+
+        font-size: 14px;
+    }
+
+    table {
+
+        width: 100%;
+    }
+}

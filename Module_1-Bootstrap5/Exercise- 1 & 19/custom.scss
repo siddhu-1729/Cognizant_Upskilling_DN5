@@ -1,0 +1,9 @@
+// Override Bootstrap default variables
+$primary:       #e63946;    // Change primary color to red
+$secondary:     #457b9d;    // Change secondary to blue
+$success:       #2d6a4f;    // Dark green for success
+$border-radius: 0.75rem;    // Increase default border radius
+$font-family-base: 'Arial, sans-serif'; // Change default font
+
+// Import Bootstrap AFTER overrides
+@import "node_modules/bootstrap/scss/bootstrap";

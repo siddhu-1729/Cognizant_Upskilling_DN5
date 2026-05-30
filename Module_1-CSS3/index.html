@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Community Event Portal</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <!-- Google font from <link> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- <style>
+     
+    </style> -->
+</head>
+<body>
+    <!-- Navigation Section -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+        <a href="help.html" target="_blank">Help Page</a>
+    </nav>
+
+    <!-- Main Section -->
+    <main>
+        <section id="home">
+            <div id="welcomeBanner">
+                <!-- Style Tag is of CSS3 module task; Making heading to red using inline styling -->
+                <h1 style="color: red;">Welcome, Community Member!</h1>
+                <p>Register for neighborhood programs, discover upcoming events, and find local services in one place.</p>
+                <p><span style="color: #fff3b0; font-weight: 700;">Special offer:</span> First-time volunteers receive a <span class="highlight">free event kit</span>.</p>
+            </div>
+        </section>
+
+        <section id="events" style="background-color: #2636380f;">
+            <h2>Community Events</h2>
+            <table>
+                <caption>Moments from recent local events</caption>
+                <tr>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/0b6e69/ffffff?text=Food+Drive" alt="Volunteers at a food drive" title="Food Drive" ondblclick="enlargeImage(this)">
+                        <p>Food Drive</p>
+                    </td>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/d6a23f/12343b?text=Music+Night" alt="Outdoor music night" title="Music Night" ondblclick="enlargeImage(this)">
+                        <p>Music Night</p>
+                    </td>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/2f4858/ffffff?text=Art+Fair" alt="Community art fair" title="Art Fair" ondblclick="enlargeImage(this)">
+                        <p>Art Fair</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/c94c4c/ffffff?text=Health+Camp" alt="Health camp registration desk" title="Health Camp" ondblclick="enlargeImage(this)">
+                        <p>Health Camp</p>
+                    </td>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/3a7ca5/ffffff?text=Tree+Planting" alt="Residents planting trees" title="Tree Planting" ondblclick="enlargeImage(this)">
+                        <p>Tree Planting</p>
+                    </td>
+                    <td>
+                        <img class="event-img" src="https://placehold.co/360x220/6b705c/ffffff?text=Book+Exchange" alt="Neighborhood book exchange" title="Book Exchange" ondblclick="enlargeImage(this)">
+                        <p>Book Exchange</p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="registration">
+            <h2>Event Registration Form</h2>
+            <form id="registrationForm">
+                <label>
+                    Name
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required autofocus>
+                </label>
+
+                <label>
+                    Email
+                    <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                </label>
+
+                <label>
+                    Phone
+                    <input type="tel" id="phone" name="phone" placeholder="10 digit phone number" required onblur="validatePhone()">
+                    <span id="phoneError"></span>
+                </label>
+
+                <label>
+                    Event Date
+                    <input type="date" id="eventDate" name="eventDate" required>
+                </label>
+
+                <label>
+                    Event Type
+                    <select id="eventType" name="eventType" required onchange="showEventFee(); savePreference();">
+                        <option value="">Choose an event</option>
+                        <option value="Food Drive" data-fee="Free">Food Drive</option>
+                        <option value="Music Night" data-fee="INR 250">Music Night</option>
+                        <option value="Art Fair" data-fee="INR 150">Art Fair</option>
+                        <option value="Health Camp" data-fee="Free">Health Camp</option>
+                    </select>
+                    <span id="feeDisplay"></span>
+                </label>
+
+                <label>
+                    Message
+                    <textarea id="message" name="message" placeholder="Share accessibility needs or questions" onkeyup="countCharacters()"></textarea>
+                    <span id="charCount">0 characters</span>
+                </label>
+
+                <div class="form-actions">
+                    <button type="submit" onclick="confirmRegistration()">Register</button>
+                    <button type="button" onclick="clearPreferences()">Clear Preferences</button>
+                </div>
+
+                <output id="confirmation" for="name email eventType"></output>
+            </form>
+        </section>
+
+        <section id="media">
+            <h2>Video Invite</h2>
+            <video controls oncanplay="videoReady()">
+                <source src="https://www.pexels.com/download/video/13082773/" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p id="videoStatus"></p>
+        </section>
+
+        <section id="contact">
+            <h2>Find Nearby Events</h2>
+            <p>Use your current location to discover events near you.</p>
+            <button type="button" onclick="findNearbyEvents()">Find Nearby Events</button>
+            <p id="locationResult"></p>
+        </section>
+    </main>
+    
+    
+    <div class="bulletin">
+          <h2>Community Bulletin</h2>
+            <div class="notice">
+              <h3>Gardening Workshop</h3>
+            <p>Join us on June 5th at the town hall.</p>
+          </div>
+           <div class="notice">
+          <h3>Book Drive</h3>
+         <p>Donate gently used books by June 10th.</p>
+       </div>
+   </div>
+
+
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2026 Local Community Event Portal</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById("registrationForm");
+        const eventType = document.getElementById("eventType");
+        const confirmation = document.getElementById("confirmation");
+        let formStarted = false;
+
+        window.addEventListener("load", () => {
+            const savedEvent = localStorage.getItem("preferredEvent");
+            if (savedEvent) {
+                eventType.value = savedEvent;
+                showEventFee();
+            }
+            console.log("Local Community Event Portal loaded");
+        });
+
+        form.addEventListener("input", () => {
+            formStarted = true;
+            sessionStorage.setItem("formStarted", "true");
+        });
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const selectedEvent = eventType.value || "the selected event";
+            confirmation.value = `Thank you, ${document.getElementById("name").value}. You are registered for ${selectedEvent}.`;
+            formStarted = false;
+            sessionStorage.removeItem("formStarted");
+        });
+
+        window.onbeforeunload = function () {
+            if (formStarted || sessionStorage.getItem("formStarted")) {
+                return "You have unfinished registration details.";
+            }
+            return undefined;
+        };
+
+        function validatePhone() {
+            const phone = document.getElementById("phone").value.trim();
+            const phoneError = document.getElementById("phoneError");
+            phoneError.textContent = /^\d{10}$/.test(phone) ? "" : "Please enter a valid 10 digit phone number.";
+        }
+
+        function showEventFee() {
+            const selected = eventType.options[eventType.selectedIndex];
+            document.getElementById("feeDisplay").textContent = selected.dataset.fee ? `Event fee: ${selected.dataset.fee}` : "";
+        }
+
+        function confirmRegistration() {
+            if (form.checkValidity()) {
+                alert("Registration submitted successfully.");
+            }
+        }
+
+        function enlargeImage(image) {
+            image.style.maxWidth = image.style.maxWidth === "420px" ? "260px" : "420px";
+            image.style.height = image.style.height === "240px" ? "150px" : "240px";
+        }
+
+
+         function countCharacters(){
+            const cnt=document.getElementById("message").value.length;
+             document.getElementById("charCount").textContent=`${cnt} characters `
+         }
+
+        function videoReady() {
+            document.getElementById("videoStatus").textContent = "Video ready to play";
+        }
+
+        function savePreference() {
+            if (eventType.value) {
+                localStorage.setItem("preferredEvent", eventType.value);
+            }
+        }
+
+        function clearPreferences() {
+            localStorage.clear();
+            sessionStorage.clear();
+            eventType.value = "";
+            document.getElementById("feeDisplay").textContent = "";
+            confirmation.value = "Preferences cleared.";
+            formStarted = false;
+        }
+
+        function findNearbyEvents() {
+            const result = document.getElementById("locationResult");
+
+            if (!navigator.geolocation) {
+                result.textContent = "Geolocation is not supported by this browser.";
+                return;
+            }
+
+            result.textContent = "Finding your location...";
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude.toFixed(10);
+                    const lon = position.coords.longitude.toFixed(10);
+                    result.textContent = `Your coordinates are Latitude: ${lat}, Longitude: ${lon}.`;
+                },
+                (error) => {
+                    if (error.code === error.PERMISSION_DENIED) {
+                        result.textContent = "Location permission was denied.";
+                    } else if (error.code === error.TIMEOUT) {
+                        result.textContent = "Location request timed out.";
+                    } else {
+                        result.textContent = "Unable to retrieve your location.";
+                    }
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 8000,
+                    maximumAge: 0
+                }
+            );
+        }
+    </script>
+</body>
+</html>

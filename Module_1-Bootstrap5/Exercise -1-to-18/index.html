@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Bootstrap 5 via CDN  -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+     
+     <!-- 17th Exercise -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body>
+
+<!-- Exercise 6  -->
+ <nav class="d-flex flex-column flex-md-row bg-dark p-3">
+  <a href="#" class="text-white text-decoration-none mb-2 mb-md-0 me-md-4">Home</a>
+  <a href="#" class="text-white text-decoration-none mb-2 mb-md-0 me-md-4">About</a>
+  <a href="#" class="text-white text-decoration-none mb-2 mb-md-0 me-md-4">Contact</a>
+</nav>
+
+<div class="card p-3" style="width: 400px;">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <h5 class="mb-0">Card Title</h5>
+      <small class="text-muted">Subtitle</small>
+    </div>
+    <button class="btn btn-primary btn-sm">Action</button>
+  </div>
+</div>
+
+
+
+     <!-- 3rd Exercise  , 3.1  -->
+      <div class="container mt-5">
+         <div class="row">
+            <div class="col-12 col-md-6 col-lg-4 bg-primary text-white p-3">Column 1</div>
+          <div class="col-12 col-md-6 col-lg-4 bg-secondary text-white p-3">Column 2</div>
+          <div class="col-12 col-md-6 col-lg-4 bg-success text-white p-3">Column 3</div>
+        </div>
+     </div>
+     
+   <!-- 3.2 -->
+     <div class="container">       <!-- controls max-width and centers content -->
+  <div class="row">           <!-- creates a horizontal flex row, handles gutters -->
+    <div class="col-md-6">    <!-- defines column width -->
+      Content here
+    </div>
+    <div class="col-md-6">
+      Content here
+    </div>
+  </div>
+</div>
+
+
+<!-- 4.1  -->
+<div class="container mt-4">
+  <div class="row">
+
+    <!-- Sidebar: 3/12 = 25% width on medium+ screens -->
+    <div class="col-md-3 bg-light p-3">
+      <h5>Sidebar</h5>
+      <ul>
+        <li>Link 1</li>
+        <li>Link 2</li>
+        <li>Link 3</li>
+      </ul>
+    </div>
+
+    <div class="col-md-9 p-3">
+      <h2>Main Content</h2>
+      <p>Your main content goes here...</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- 4.2 Four Column Layout -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3 bg-primary text-white p-3 text-center">Box 1</div>
+    <div class="col-sm-3 bg-secondary text-white p-3 text-center">Box 2</div>
+    <div class="col-sm-3 bg-success text-white p-3 text-center">Box 3</div>
+    <div class="col-sm-3 bg-danger text-white p-3 text-center">Box 4</div>
+  </div>
+</div>
+
+
+<!-- 5th Exercise -->
+ <!-- 5.1  Horizontal centering -->
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6 bg-info p-3 text-center">
+      I am centered horizontally
+    </div>
+  </div>
+</div>
+
+<!--  Both horizontal and vertical centering   -->
+<div class="container">
+  <div class="row justify-content-center align-items-center" style="height: 300px;">
+    <div class="col-md-4 bg-warning p-3 text-center">
+      I am centered both ways
+    </div>
+  </div>
+</div>
+
+<!-- 5.2  Reordering columns-->
+<div class="container">
+  <div class="row">
+    <!-- Appears second on desktop, first on mobile -->
+    <div class="col-md-8 order-md-2 bg-light p-3">
+      Main Content (HTML first, visually second on desktop)
+    </div>
+
+    <!-- Appears first on desktop, second on mobile -->
+    <div class="col-md-4 order-md-1 bg-secondary text-white p-3">
+      Sidebar (HTML second, visually first on desktop)
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 7th Exercise  -->
+<div class="container mt-4">
+  <h1 class="display-1">Display Heading 1</h1>
+  <h2 class="display-4">Display Heading 4</h2>
+  <p class="lead">This is a lead paragraph — slightly larger and lighter.</p>
+  <p class="text-muted">This text is muted/grayed out.</p>
+  <p class="fw-bold">This text is bold.</p>
+  <p class="fw-light">This text is light weight.</p>
+  <p class="fst-italic">This text is italic.</p>
+  <p class="text-decoration-underline">This is underlined.</p>
+</div>
+
+<p class="text-uppercase">this becomes uppercase</p>
+<!-- Output: THIS BECOMES UPPERCASE -->
+
+<p class="text-lowercase">THIS BECOMES LOWERCASE</p>
+<!-- Output: this becomes lowercase -->
+
+<p class="text-capitalize">each word gets capitalized</p>
+<!-- Output: Each Word Gets Capitalized -->
+
+
+
+<!-- 8th Exercise Registration forms  -->
+<div class="container mt-4" style="max-width: 500px;">
+  <h3>Register</h3>
+
+  <!-- Text Input -->
+  <div class="mb-3">
+    <label class="form-label">Full Name</label>
+    <input type="text" class="form-control" placeholder="Enter your name">
+  </div>
+
+  <!-- Email with Input Group (icon addon) -->
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <div class="input-group">
+      <span class="input-group-text">@</span>
+      <input type="email" class="form-control" placeholder="Enter email">
+    </div>
+  </div>
+
+  <!-- Checkbox -->
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="terms">
+    <label class="form-check-label" for="terms">I agree to Terms</label>
+  </div>
+
+  <button class="btn btn-primary w-100">Register</button>
+</div>
+
+<!-- 8.2 -->
+ <div class="container mt-4" style="max-width: 400px;">
+  <h3>Login</h3>
+
+  <div class="form-floating mb-3">
+    <input type="email" class="form-control" id="email" placeholder="name@example.com">
+    <label for="email">Email address</label>
+    <!-- Label floats UP when you click the input -->
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="password" class="form-control" id="password" placeholder="Password">
+    <label for="password">Password</label>
+  </div>
+
+  <button class="btn btn-success w-100">Login</button>
+</div>
+
+
+<!-- 9th Exercise -->
+<div class="container mt-4">
+  <!-- Solid buttons -->
+  <button class="btn btn-primary">Primary</button>
+  <button class="btn btn-secondary">Secondary</button>
+  <button class="btn btn-success">Success</button>
+  <button class="btn btn-danger">Danger</button>
+  <button class="btn btn-warning">Warning</button>
+  <button class="btn btn-info">Info</button>
+  <button class="btn btn-light">Light</button>
+  <button class="btn btn-dark">Dark</button>
+
+  <hr>
+
+  <!-- Outline buttons (transparent background) -->
+  <button class="btn btn-outline-primary">Outline Primary</button>
+  <button class="btn btn-outline-danger">Outline Danger</button>
+  <button class="btn btn-outline-success">Outline Success</button>
+
+  <hr>
+
+  <!-- Size variants -->
+  <button class="btn btn-primary btn-lg">Large</button>
+  <button class="btn btn-primary">Default</button>
+  <button class="btn btn-primary btn-sm">Small</button>
+</div>
+<!-- 9.2 -->
+ <!-- Button Group -->
+<div class="btn-group" role="group">
+  <button class="btn btn-primary">Left</button>
+  <button class="btn btn-primary">Middle</button>
+  <button class="btn btn-primary">Right</button>
+</div>
+
+<hr>
+
+<!-- Toggle Buttons with Checkboxes -->
+<div class="btn-group" role="group">
+  <input type="checkbox" class="btn-check" id="bold" autocomplete="off">
+  <label class="btn btn-outline-primary" for="bold">Bold</label>
+
+  <input type="checkbox" class="btn-check" id="italic" autocomplete="off">
+  <label class="btn btn-outline-primary" for="italic">Italic</label>
+
+  <input type="checkbox" class="btn-check" id="underline" autocomplete="off">
+  <label class="btn btn-outline-primary" for="underline">Underline</label>
+</div>
+
+<!-- 10th exercise -->
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+
+  <!-- Logo/Brand -->
+  <a class="navbar-brand" href="#">MyBrand</a>
+
+  <!-- Hamburger toggle for mobile -->
+  <button class="navbar-toggler" type="button"
+    data-bs-toggle="collapse" data-bs-target="#navMenu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible menu -->
+  <div class="collapse navbar-collapse" id="navMenu">
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+    </ul>
+
+    <!-- Search Form -->
+    <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search">
+      <button class="btn btn-outline-light" type="submit">Search</button>
+    </form>
+  </div>
+
+</nav>
+
+<!-- 10.2 -->
+ <!-- Tab Navigation -->
+<ul class="nav nav-tabs mb-3">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Profile</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled">Disabled</a>
+  </li>
+</ul>
+
+<hr>
+
+<!-- Pills Navigation -->
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Active</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+</ul>
+
+<!-- 11th exercise  -->
+ <div class="card" style="width: 300px;">
+  <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Profile">
+  <div class="card-body">
+    <h5 class="card-title">John Doe</h5>
+    <p class="card-text text-muted">Full Stack Developer</p>
+    <p class="card-text">Passionate about building web applications.</p>
+    <a href="#" class="btn btn-primary w-100">View Profile</a>
+  </div>
+</div>
+
+<!-- 11.2 -->
+ <div class="d-flex mb-4">
+  <img src="https://via.placeholder.com/80" class="rounded me-3" alt="Avatar">
+  <div>
+    <h5 class="mt-0">Username</h5>
+    <p>This is a comment or message content. The image stays fixed on the left while this text flows alongside it.</p>
+  </div>
+</div>
+
+
+<!-- 12th exercise -->
+<div class="container mt-5">
+
+  <div class="m-3 bg-primary text-white p-2">m-3: margin all sides</div>
+  <div class="mt-4 bg-secondary text-white p-2">mt-4: margin top only</div>
+  <div class="mb-2 bg-success text-white p-2">mb-2: margin bottom only</div>
+  <div class="mx-5 bg-danger text-white p-2">mx-5: margin left & right</div>
+
+  <div class="bg-warning p-5 mt-3">p-5: large padding all sides</div>
+  <div class="bg-info py-3 mt-2">py-3: padding top & bottom only</div>
+  <div class="bg-dark text-white px-4 mt-2">px-4: padding left & right only</div>
+
+</div>
+
+<!-- 12.2 -->
+ <div class="container mt-5">
+  <div class="row justify-content-center">
+
+    <div class="col-md-4 mb-4">
+      <div class="card text-center p-4 shadow">
+        <h3 class="mb-3">Basic</h3>
+        <h2 class="display-4 mb-4">$9<small class="fs-6">/mo</small></h2>
+        <ul class="list-unstyled mb-4">
+          <li class="mb-2">5 Projects</li>
+          <li class="mb-2">10GB Storage</li>
+          <li class="mb-2">Email Support</li>
+        </ul>
+        <button class="btn btn-outline-primary">Get Started</button>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card text-center p-4 shadow bg-primary text-white">
+        <h3 class="mb-3">Pro</h3>
+        <h2 class="display-4 mb-4">$29<small class="fs-6">/mo</small></h2>
+        <ul class="list-unstyled mb-4">
+          <li class="mb-2">Unlimited Projects</li>
+          <li class="mb-2">100GB Storage</li>
+          <li class="mb-2">Priority Support</li>
+        </ul>
+        <button class="btn btn-light">Get Started</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- 13th exercise -->
+ <div class="container mt-4">
+  <div class="row g-3">
+    <div class="col-md-3">
+      <div class="bg-primary text-white p-4 rounded text-center">
+        <h4>1,200</h4><p class="mb-0">Users</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="bg-success text-white p-4 rounded text-center">
+        <h4>$4,500</h4><p class="mb-0">Revenue</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="bg-warning text-dark p-4 rounded text-center">
+        <h4>34</h4><p class="mb-0">Pending</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="bg-danger text-white p-4 rounded text-center">
+        <h4>5</h4><p class="mb-0">Errors</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 13.2 -->
+<section class="bg-dark bg-gradient text-white py-5 text-center">
+  <h1 class="display-4">Welcome to My Site</h1>
+  <p class="lead">A beautiful gradient dark section</p>
+  <button class="btn btn-outline-light btn-lg">Get Started</button>
+</section>
+
+
+<!-- 14th Exercise -->
+ <!-- Only visible on mobile -->
+<div class="d-block d-md-none bg-warning p-3">
+  Visible only on mobile
+</div>
+
+<!-- Only visible on tablets and above -->
+<div class="d-none d-md-block bg-info p-3">
+  Visible on tablet and above
+</div>
+
+<!-- Only visible on large screens as flex -->
+<div class="d-none d-lg-flex bg-success text-white p-3 justify-content-between">
+  <span>Only on large screens</span>
+  <span>As flex container</span>
+</div>
+
+<!-- 14.2 -->
+<div class="container mt-4">
+  <div class="row">
+
+    <!-- Sidebar: hidden on mobile, visible on tablet+ -->
+    <div class="col-md-3 d-none d-md-block bg-light p-3">
+      <h5>Sidebar</h5>
+      <ul class="list-group">
+        <li class="list-group-item">Dashboard</li>
+        <li class="list-group-item">Settings</li>
+        <li class="list-group-item">Profile</li>
+      </ul>
+    </div>
+
+    <!-- Main content: full width on mobile, 9 cols on tablet+ -->
+    <div class="col-12 col-md-9 p-3">
+      <h2>Main Content</h2>
+      <p>This content always shows. The sidebar only appears on tablets and above.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- 15th exercise -->
+ <div class="container mt-4 text-center">
+
+  <!-- Circle profile image with colored border -->
+  <img src="https://via.placeholder.com/150"
+    class="border border-primary border-3 rounded-circle mb-3"
+    alt="Profile">
+
+  <!-- Square image with rounded corners -->
+  <img src="https://via.placeholder.com/150"
+    class="border border-success border-2 rounded mb-3 ms-3"
+    alt="Square">
+
+</div>
+
+<!-- 15.2 -->
+ <div class="container mt-4">
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class="card shadow p-3 mb-3">
+        <h5>Regular Shadow</h5>
+        <p class="text-muted">Uses shadow class</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-lg p-3 mb-3">
+        <h5>Large Shadow</h5>
+        <p class="text-muted">Uses shadow-lg class</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm p-3 mb-3">
+        <h5>Small Shadow</h5>
+        <p class="text-muted">Uses shadow-sm class</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Rounded pill button and badge -->
+  <button class="btn btn-primary rounded-pill px-4">Pill Button</button>
+  <span class="badge bg-success rounded-pill ms-2">New</span>
+</div>
+
+<!-- 16th exercise -->
+ <!-- Fixed footer stays at bottom even when scrolling -->
+<footer class="position-fixed bottom-0 start-0 w-100 bg-dark text-white text-center py-3">
+  © 2026 MyWebsite. All rights reserved.
+</footer>
+
+<!-- Add padding to body so content doesn't hide behind footer -->
+<body style="padding-bottom: 60px;">
+
+  <!-- 16.2 -->
+   <div class="position-relative d-inline-block mt-4">
+  <img src="https://via.placeholder.com/100" class="rounded" alt="Product">
+
+  <!-- Badge positioned at top-right corner of image -->
+  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    5
+  </span>
+</div>
+
+<!-- 17th Exercise -->
+ <footer class="bg-dark text-white py-4 text-center">
+  <p>Follow us on:</p>
+  <a href="#" class="text-white fs-4 me-3"><i class="bi bi-twitter"></i></a>
+  <a href="#" class="text-white fs-4 me-3"><i class="bi bi-instagram"></i></a>
+  <a href="#" class="text-white fs-4 me-3"><i class="bi bi-linkedin"></i></a>
+  <a href="#" class="text-white fs-4 me-3"><i class="bi bi-github"></i></a>
+  <p class="mt-3 mb-0">© 2026 MyBrand</p>
+</footer>
+
+<!-- 17.2 -->
+ <div class="container mt-4">
+
+  <!-- Icon buttons with tooltips for accessibility -->
+  <button class="btn btn-primary me-2" aria-label="Edit">
+    <i class="bi bi-pencil"></i>
+  </button>
+
+  <button class="btn btn-danger me-2" aria-label="Delete">
+    <i class="bi bi-trash"></i>
+  </button>
+
+  <button class="btn btn-success me-2" aria-label="Download">
+    <i class="bi bi-download"></i>
+  </button>
+
+  <button class="btn btn-secondary me-2" aria-label="Share">
+    <i class="bi bi-share"></i>
+  </button>
+
+</div>
+
+<!-- 18th Exercise -->
+ <!-- Trigger Button -->
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+  Open Modal
+</button>
+
+<!-- Modal Structure -->
+<div class="modal fade" id="myModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Modal Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <p>This is the modal content. You can put anything here.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-primary">Save Changes</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 18.2 -->
+<div class="accordion mt-4" id="faqAccordion">
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading1">
+      <button class="accordion-button" type="button"
+        data-bs-toggle="collapse" data-bs-target="#collapse1">
+        What is Bootstrap?
+      </button>
+    </h2>
+    <div id="collapse1" class="accordion-collapse collapse show"
+      data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        Bootstrap is a CSS framework for building responsive websites quickly.
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading2">
+      <button class="accordion-button collapsed" type="button"
+        data-bs-toggle="collapse" data-bs-target="#collapse2">
+        Is Bootstrap free?
+      </button>
+    </h2>
+    <div id="collapse2" class="accordion-collapse collapse"
+      data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        Yes, Bootstrap is completely free and open source.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+   <!-- Bootstrap 5 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
