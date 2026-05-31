@@ -95,6 +95,49 @@
             cursor: pointer;
         }
 
+        .event-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin: 18px 0;
+        }
+
+        #eventCards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .event-card {
+            display: grid;
+            gap: 10px;
+            padding: 16px;
+            border: 1px solid #d9e2e5;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        .event-card h3,
+        .event-card p {
+            margin: 0;
+        }
+
+        .event-card.full {
+            opacity: 0.68;
+        }
+
+        .spinner {
+            display: none;
+            margin-top: 12px;
+            color: #0b6e69;
+            font-weight: 700;
+        }
+
+        .spinner.is-visible {
+            display: block;
+        }
+
         form {
             display: grid;
             gap: 14px;
@@ -188,8 +231,8 @@
     <nav>
         <a href="#home">Home</a>
         <a href="#events">Events</a>
-        <a href="#contact">Contact</a>
-        <a href="help.html" target="_blank">Help Page</a>
+        <!-- <a href="#contact">Contact</a> -->
+       
     </nav>
 
     <!-- Main Section -->
@@ -210,32 +253,55 @@
                 <tr>
                     <td>
                         <img class="event-img" src="https://placehold.co/360x220/0b6e69/ffffff?text=Food+Drive" alt="Volunteers at a food drive" title="Food Drive" ondblclick="enlargeImage(this)">
-                        <p >Food Drive</p>
+                        <p id="eventname">Food Drive</p>
                     </td>
                     <td>
                         <img class="event-img" src="https://placehold.co/360x220/d6a23f/12343b?text=Music+Night" alt="Outdoor music night" title="Music Night" ondblclick="enlargeImage(this)">
-                        <p>Music Night</p>
+                        <p id="eventname">Music Night</p>
                     </td>
                     <td>
                         <img class="event-img" src="https://placehold.co/360x220/2f4858/ffffff?text=Art+Fair" alt="Community art fair" title="Art Fair" ondblclick="enlargeImage(this)">
-                        <p>Art Fair</p>
+                        <p id="eventname">Art Fair</p>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <img class="event-img" src="https://placehold.co/360x220/c94c4c/ffffff?text=Health+Camp" alt="Health camp registration desk" title="Health Camp" ondblclick="enlargeImage(this)">
-                        <p>Health Camp</p>
+                        <p id="eventname">Health Camp</p>
                     </td>
                     <td>
                         <img class="event-img" src="https://placehold.co/360x220/3a7ca5/ffffff?text=Tree+Planting" alt="Residents planting trees" title="Tree Planting" ondblclick="enlargeImage(this)">
-                        <p>Tree Planting</p>
+                        <p id="eventname">Tree Planting</p>
                     </td>
                     <td>
                         <img class="event-img" src="https://placehold.co/360x220/6b705c/ffffff?text=Book+Exchange" alt="Neighborhood book exchange" title="Book Exchange" ondblclick="enlargeImage(this)">
-                        <p>Book Exchange</p>
+                        <p id="eventname">Book Exchange</p>
                     </td>
                 </tr>
             </table>
+
+            <div class="event-tools">
+                <label>
+                    Filter by Category
+                    <select id="categoryFilter">
+                        <option value="All">All categories</option>
+                        <option value="Food">Food</option>
+                        <option value="Music">Music</option>
+                        <option value="Art">Art</option>
+                        <option value="Health">Health</option>
+                        <option value="Environment">Environment</option>
+                        <option value="Education">Education</option>
+                    </select>
+                </label>
+
+                <label>
+                    Quick Search
+                    <input type="search" id="searchInput" placeholder="Search by event name">
+                </label>
+            </div>
+
+            <div id="loadingSpinner" class="spinner">Loading events...</div>
+            <div id="eventCards" aria-live="polite"></div>
         </section>
 
         <section id="registration">
@@ -281,7 +347,7 @@
                 </label>
 
                 <div class="form-actions">
-                    <button type="submit" onclick="confirmRegistration()">Register</button>
+                    <button id="registerBtn" type="submit" onclick="confirmRegistration()">Register</button>
                     <button type="button" onclick="clearPreferences()">Clear Preferences</button>
                 </div>
 
@@ -289,21 +355,21 @@
             </form>
         </section>
 
-        <section id="media">
+        <!-- <section id="media">
             <h2>Video Invite</h2>
-            <video controls oncanplay="videoReady()">
+            <video controls>
                 <source src="https://www.pexels.com/download/video/13082773/" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <p id="videoStatus"></p>
-        </section>
+        </section> -->
 
-        <section id="contact">
+        <!-- <section id="contact">
             <h2>Find Nearby Events</h2>
             <p>Use your current location to discover events near you.</p>
             <button type="button" onclick="findNearbyEvents()">Find Nearby Events</button>
             <p id="locationResult"></p>
-        </section>
+        </section> -->
     </main>
 
     <!-- Footer Section -->
@@ -311,119 +377,7 @@
         <p>&copy; 2026 Local Community Event Portal</p>
     </footer>
 
-    <script>
-        const form = document.getElementById("registrationForm");
-        const eventType = document.getElementById("eventType");
-        const confirmation = document.getElementById("confirmation");
-        let formStarted = false;
-
-        window.addEventListener("load", () => {
-            const savedEvent = localStorage.getItem("preferredEvent");
-            if (savedEvent) {
-                eventType.value = savedEvent;
-                showEventFee();
-            }
-            console.log("Local Community Event Portal loaded");
-        });
-
-        form.addEventListener("input", () => {
-            formStarted = true;
-            sessionStorage.setItem("formStarted", "true");
-        });
-
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const selectedEvent = eventType.value || "the selected event";
-            confirmation.value = `Thank you, ${document.getElementById("name").value}. You are registered for ${selectedEvent}.`;
-            formStarted = false;
-            sessionStorage.removeItem("formStarted");
-        });
-
-        window.onbeforeunload = function () {
-            if (formStarted || sessionStorage.getItem("formStarted")) {
-                return "You have unfinished registration details.";
-            }
-            return undefined;
-        };
-
-        function validatePhone() {
-            const phone = document.getElementById("phone").value.trim();
-            const phoneError = document.getElementById("phoneError");
-            phoneError.textContent = /^\d{10}$/.test(phone) ? "" : "Please enter a valid 10 digit phone number.";
-        }
-
-        function showEventFee() {
-            const selected = eventType.options[eventType.selectedIndex];
-            document.getElementById("feeDisplay").textContent = selected.dataset.fee ? `Event fee: ${selected.dataset.fee}` : "";
-        }
-
-        function confirmRegistration() {
-            if (form.checkValidity()) {
-                alert("Registration submitted successfully.");
-            }
-        }
-
-        function enlargeImage(image) {
-            image.style.maxWidth = image.style.maxWidth === "420px" ? "260px" : "420px";
-            image.style.height = image.style.height === "240px" ? "150px" : "240px";
-        }
-
-
-         function countCharacters(){
-            const cnt=document.getElementById("message").value.length;
-             document.getElementById("charCount").textContent=`${cnt} characters `
-         }
-
-        function videoReady() {
-            document.getElementById("videoStatus").textContent = "Video ready to play";
-        }
-
-        function savePreference() {
-            if (eventType.value) {
-                localStorage.setItem("preferredEvent", eventType.value);
-            }
-        }
-
-        function clearPreferences() {
-            localStorage.clear();
-            sessionStorage.clear();
-            eventType.value = "";
-            document.getElementById("feeDisplay").textContent = "";
-            confirmation.value = "Preferences cleared.";
-            formStarted = false;
-        }
-
-        function findNearbyEvents() {
-            const result = document.getElementById("locationResult");
-
-            if (!navigator.geolocation) {
-                result.textContent = "Geolocation is not supported by this browser.";
-                return;
-            }
-
-            result.textContent = "Finding your location...";
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude.toFixed(10);
-                    const lon = position.coords.longitude.toFixed(10);
-                    result.textContent = `Your coordinates are Latitude: ${lat}, Longitude: ${lon}.`;
-                },
-                (error) => {
-                    if (error.code === error.PERMISSION_DENIED) {
-                        result.textContent = "Location permission was denied.";
-                    } else if (error.code === error.TIMEOUT) {
-                        result.textContent = "Location request timed out.";
-                    } else {
-                        result.textContent = "Unable to retrieve your location.";
-                    }
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 8000,
-                    maximumAge: 0
-                }
-            );
-        }
-    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
