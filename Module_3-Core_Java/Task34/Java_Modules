@@ -1,0 +1,28 @@
+// --- com.utils/module-info.java ---
+module com.utils {
+    exports com.utils;
+}
+
+// --- com.utils/src/com/utils/StringUtil.java ---
+package com.utils;
+public class StringUtil {
+    public static String greet(String name) {
+        return "Hello, " + name + "!";
+    }
+}
+
+// --- com.greetings/module-info.java ---
+module com.greetings {
+    requires com.utils;
+}
+
+// --- com.greetings/src/com/greetings/Main.java ---
+package com.greetings;
+import com.utils.StringUtil;
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(StringUtil.greet("World"));
+    }
+}
+// Compile: javac --module-source-path src -d mods -m com.utils,com.greetings
+// Run:     java --module-path mods -m com.greetings/com.greetings.Main
