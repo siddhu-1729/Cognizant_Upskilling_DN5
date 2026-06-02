@@ -1,0 +1,407 @@
+-- ======================
+-- 1 user upcoming events
+-- =======================
+-- Events a specific user is registered for in their own city, sorted by start date
+SELECT
+    e.event_id,
+    e.title,
+    e.city,
+    e.start_date,
+    e.end_date,
+    e.status
+FROM Registrations r
+JOIN Events e ON r.event_id = e.event_id
+JOIN Users  u ON r.user_id  = u.user_id
+WHERE r.user_id  = :user_id       -- replace with target user
+  AND e.city     = u.city
+  AND e.status   = 'upcoming'
+ORDER BY e.start_date ASC;
+
+-- =================================
+-- 2 Top rated events
+-- ================================
+-- Events with the highest average rating (minimum 10 feedbacks)
+SELECT
+    e.event_id,
+    e.title,
+    ROUND(AVG(f.rating), 2)  AS avg_rating,
+    COUNT(f.feedback_id)     AS feedback_count
+FROM Feedback f
+JOIN Events e ON f.event_id = e.event_id
+GROUP BY e.event_id, e.title
+HAVING COUNT(f.feedback_id) >= 10
+ORDER BY avg_rating DESC;
+
+-- =========================
+-- 3 Inactive users
+-- =======================
+-- Users who have not registered for any event in the last 90 days
+SELECT
+    u.user_id,
+    u.full_name,
+    u.email,
+    u.city
+FROM Users u
+WHERE u.user_id NOT IN (
+    SELECT DISTINCT r.user_id
+    FROM Registrations r
+    WHERE r.registration_date >= CURDATE() - INTERVAL 90 DAY
+)
+ORDER BY u.full_name;
+
+
+-- ===================
+-- 4 Peak session Hours
+-- ====================
+-- Count of sessions scheduled 10 AM to 12 PM per event
+SELECT
+    e.event_id,
+    e.title,
+    COUNT(s.session_id) AS sessions_10_to_12
+FROM Sessions s
+JOIN Events e ON s.event_id = e.event_id
+WHERE TIME(s.start_time) >= '10:00:00'
+  AND TIME(s.start_time) <  '12:00:00'
+GROUP BY e.event_id, e.title
+ORDER BY sessions_10_to_12 DESC;
+
+-- =====================
+-- 5 Most active cities
+-- =====================
+-- Top 5 cities by distinct user registrations
+SELECT
+    u.city,
+    COUNT(DISTINCT r.user_id) AS distinct_registrations
+FROM Registrations r
+JOIN Users u ON r.user_id = u.user_id
+GROUP BY u.city
+ORDER BY distinct_registrations DESC
+LIMIT 5;
+
+
+-- ==========================
+-- 6 Event Resource Summary
+-- =========================
+-- Number of PDFs, images, and links uploaded per event
+SELECT
+    e.event_id,
+    e.title,
+    COUNT(r.resource_id)               AS total_resources,
+    SUM(r.resource_type = 'pdf')        AS pdf_count,
+    SUM(r.resource_type = 'image')     AS image_count,
+    SUM(r.resource_type = 'link')     AS link_count
+FROM Events e
+LEFT JOIN Resources r ON e.event_id = r.event_id
+GROUP BY e.event_id, e.title
+ORDER BY total_resources DESC;
+
+-- =========================
+-- 7 Low feedback alerts
+-- ========================
+-- Users who gave low ratings (< 3) with their comments and event names
+SELECT
+    u.user_id,
+    u.full_name,
+    u.email,
+    e.title   AS event_name,
+    f.rating,
+    f.comments,
+    f.feedback_date
+FROM Feedback f
+JOIN Users  u ON f.user_id  = u.user_id
+JOIN Events e ON f.event_id = e.event_id
+WHERE f.rating < 3
+ORDER BY f.rating ASC, f.feedback_date DESC;
+
+-- ========================
+-- 8 Session per upcoming event
+-- ============================
+-- All upcoming events with their session count
+SELECT
+    e.event_id,
+    e.title,
+    e.city,
+    e.start_date,
+    COUNT(s.session_id) AS session_count
+FROM Events e
+LEFT JOIN Sessions s ON e.event_id = s.event_id
+WHERE e.status = 'upcoming'
+GROUP BY e.event_id, e.title, e.city, e.start_date
+ORDER BY e.start_date ASC;
+
+
+-- ============================
+-- 9 organiser event summary
+-- ==========================
+-- Events per organizer grouped by status
+SELECT
+    u.user_id,
+    u.full_name          AS organizer,
+    e.status,
+    COUNT(e.event_id)    AS event_count
+FROM Events e
+JOIN Users u ON e.organizer_id = u.user_id
+GROUP BY u.user_id, u.full_name, e.status
+ORDER BY u.full_name, e.status;
+
+
+-- ==========================
+-- 10 Feedback Gap
+-- ======================
+-- Events with registrations but no feedback
+SELECT
+    e.event_id,
+    e.title,
+    COUNT(r.registration_id) AS total_registrations
+FROM Events e
+JOIN Registrations r ON e.event_id = r.event_id
+WHERE e.event_id NOT IN (
+    SELECT DISTINCT event_id FROM Feedback
+)
+GROUP BY e.event_id, e.title
+ORDER BY total_registrations DESC;
+
+
+-- ================================
+-- 11 Daily new User count
+-- ========================
+-- Users registered each day over the last 7 days
+SELECT
+    registration_date,
+    COUNT(user_id) AS new_users
+FROM Users
+WHERE registration_date >= CURDATE() - INTERVAL 7 DAY
+GROUP BY registration_date
+ORDER BY registration_date DESC;
+
+
+-- ===================
+-- 12 Event with Most sessions
+-- ======================
+-- Event(s) with the highest session count
+SELECT
+    e.event_id,
+    e.title,
+    COUNT(s.session_id) AS session_count
+FROM Events e
+JOIN Sessions s ON e.event_id = s.event_id
+GROUP BY e.event_id, e.title
+HAVING COUNT(s.session_id) = (
+    SELECT MAX(cnt)
+    FROM (
+        SELECT COUNT(session_id) AS cnt
+        FROM Sessions
+        GROUP BY event_id
+    ) sub
+)
+ORDER BY e.title;
+
+-- ==================
+-- 13 Avg rating per city
+-- ======================
+-- Average feedback rating by city
+SELECT
+    e.city,
+    ROUND(AVG(f.rating), 2) AS avg_rating,
+    COUNT(f.feedback_id)    AS total_feedback
+FROM Feedback f
+JOIN Events e ON f.event_id = e.event_id
+GROUP BY e.city
+ORDER BY avg_rating DESC;
+
+
+-- ==========================
+-- 14 Most registered events
+-- ==========================
+-- Top 3 events by registration count
+SELECT
+    e.event_id,
+    e.title,
+    COUNT(r.registration_id) AS total_registrations
+FROM Registrations r
+JOIN Events e ON r.event_id = e.event_id
+GROUP BY e.event_id, e.title
+ORDER BY total_registrations DESC
+LIMIT 3;
+
+
+-- =============================
+-- 15 Session time conflicts
+-- ==============================
+-- Overlapping sessions within the same event
+SELECT
+    a.event_id,
+    e.title        AS event_title,
+    a.session_id   AS session_a,
+    a.title        AS title_a,
+    a.start_time   AS start_a,
+    a.end_time     AS end_a,
+    b.session_id   AS session_b,
+    b.title        AS title_b,
+    b.start_time   AS start_b,
+    b.end_time     AS end_b
+FROM Sessions a
+JOIN Sessions b
+    ON  a.event_id   = b.event_id
+    AND a.session_id < b.session_id        -- avoid duplicates
+    AND a.start_time < b.end_time          -- overlap condition
+    AND b.start_time < a.end_time
+JOIN Events e ON a.event_id = e.event_id
+ORDER BY a.event_id, a.start_time;
+
+
+-- =========================
+-- 16 Unregistered acive users
+-- ===========================
+-- New users (last 30 days) with zero event registrations
+SELECT
+    u.user_id,
+    u.full_name,
+    u.email,
+    u.city,
+    u.registration_date
+FROM Users u
+WHERE u.registration_date >= CURDATE() - INTERVAL 30 DAY
+  AND u.user_id NOT IN (
+        SELECT DISTINCT user_id FROM Registrations
+  )
+ORDER BY u.registration_date DESC;
+
+
+-- ===========================
+-- 17 Mulit session speakers
+-- ==========================
+-- Speakers handling more than one session
+SELECT
+    speaker_name,
+    COUNT(session_id) AS session_count,
+    GROUP_CONCAT(title ORDER BY start_time SEPARATOR ' | ') AS sessions
+FROM Sessions
+GROUP BY speaker_name
+HAVING COUNT(session_id) > 1
+ORDER BY session_count DESC;
+
+-- ==================
+-- 18 Event without resource
+-- ====================
+-- Events with no uploaded resources
+SELECT
+    e.event_id,
+    e.title,
+    e.city,
+    e.status
+FROM Events e
+WHERE e.event_id NOT IN (
+    SELECT DISTINCT event_id FROM Resources
+)
+ORDER BY e.start_date;
+
+-- ===================================================
+-- 19 Completed events feedback summary
+-- ======================================
+-- Completed events: registration count and average rating
+SELECT
+    e.event_id,
+    e.title,
+    COUNT(DISTINCT r.registration_id)  AS total_registrations,
+    ROUND(AVG(f.rating), 2)            AS avg_rating,
+    COUNT(DISTINCT f.feedback_id)      AS total_feedback
+FROM Events e
+LEFT JOIN Registrations r ON e.event_id = r.event_id
+LEFT JOIN Feedback      f ON e.event_id = f.event_id
+WHERE e.status = 'completed'
+GROUP BY e.event_id, e.title
+ORDER BY avg_rating DESC;
+
+-- ===========================
+-- 20 User engagement index
+-- ==========================
+-- Per-user count of events registered and feedbacks submitted
+SELECT
+    u.user_id,
+    u.full_name,
+    COUNT(DISTINCT r.event_id)   AS events_registered,
+    COUNT(DISTINCT f.feedback_id) AS feedbacks_submitted
+FROM Users u
+LEFT JOIN Registrations r ON u.user_id = r.user_id
+LEFT JOIN Feedback      f ON u.user_id = f.user_id
+GROUP BY u.user_id, u.full_name
+ORDER BY events_registered DESC, feedbacks_submitted DESC;
+
+
+-- ===================================
+-- 21 Top feedback providers
+-- ==========================
+-- Top 5 most active feedback submitters
+SELECT
+    u.user_id,
+    u.full_name,
+    u.email,
+    COUNT(f.feedback_id) AS feedback_count
+FROM Feedback f
+JOIN Users u ON f.user_id = u.user_id
+GROUP BY u.user_id, u.full_name, u.email
+ORDER BY feedback_count DESC
+LIMIT 5;
+
+-- ======================
+-- 22 Duplicate Registration
+-- ========================
+-- Users registered more than once for the same event
+SELECT
+    r.user_id,
+    u.full_name,
+    r.event_id,
+    e.title        AS event_title,
+    COUNT(*)       AS registration_count
+FROM Registrations r
+JOIN Users  u ON r.user_id  = u.user_id
+JOIN Events e ON r.event_id = e.event_id
+GROUP BY r.user_id, u.full_name, r.event_id, e.title
+HAVING COUNT(*) > 1
+ORDER BY registration_count DESC;
+
+-- ============================
+-- 23 Registration Trends
+-- ==========================
+-- Monthly registration count for the past 12 months
+SELECT
+    DATE_FORMAT(registration_date, '%Y-%m') AS month,
+    COUNT(registration_id)                  AS registrations
+FROM Registrations
+WHERE registration_date >= CURDATE() - INTERVAL 12 MONTH
+GROUP BY DATE_FORMAT(registration_date, '%Y-%m')
+ORDER BY month ASC;
+
+
+-- ==============================
+-- 24 Avg session Duration per events
+-- ==============================
+-- Average session duration (minutes) per event
+SELECT
+    e.event_id,
+    e.title,
+    ROUND(
+        AVG(TIMESTAMPDIFF(MINUTE, s.start_time, s.end_time)),
+    2) AS avg_duration_minutes,
+    COUNT(s.session_id) AS session_count
+FROM Sessions s
+JOIN Events e ON s.event_id = e.event_id
+GROUP BY e.event_id, e.title
+ORDER BY avg_duration_minutes DESC;
+
+-- ===================================
+-- 25 Events without sessions 
+-- =================================
+-- Events with no sessions scheduled
+SELECT
+    e.event_id,
+    e.title,
+    e.city,
+    e.status,
+    e.start_date
+FROM Events e
+WHERE e.event_id NOT IN (
+    SELECT DISTINCT event_id FROM Sessions
+)
+ORDER BY e.start_date;
